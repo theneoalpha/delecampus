@@ -12,7 +12,7 @@ function ThoughtSubmission() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/thought', { // Adjust the port if necessary
+      const response = await fetch('https://delecampus.vercel.app//thought', { // Adjust the port if necessary
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
