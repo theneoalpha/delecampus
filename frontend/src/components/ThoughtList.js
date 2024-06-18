@@ -11,7 +11,7 @@ const ThoughtList = () => {
     useEffect(() => {
         const fetchThoughts = async () => {
             try {
-                const response = await fetch('http://localhost:8000/thoughts'); // Ensure this URL is correct
+                const response = await fetch('https://delecampus.vercel.app/thoughts'); // Ensure this URL is correct
 
                 console.log('Response headers:', response.headers); // Log response headers
 

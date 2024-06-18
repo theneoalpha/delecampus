@@ -143,17 +143,23 @@
         display: flex;
         flex-direction: row;
     }
+    .experience_container
+    {
+      display: flex;
+      flex-direction: row;
+  }
+  .experience_container img{
+    width: 20rem;
+    margin-top: 8rem;
+    margin-right: 6rem;
+  }
     .thoughts_page img{
         width: 40rem;
     }
     .message-orange{
         width: 16rem;
     }
-    .experience_container{
-        width: 50%;
-        display: block;
-        margin: 14rem auto;
-      }
+  
   
   }
   
@@ -175,6 +181,10 @@
       h1{
         font-size: 2rem;
       }
+      .experience_container img{
+        width: 12rem;
+        margin-top: 5rem;
+      }
   }
   
   @media (max-width: 767px) and  (min-width: 312px) {
@@ -184,6 +194,10 @@
     .thoughts_container {
       width: 80%;
       margin: 4rem auto;
+  }
+  .experience_container img{
+    width: 8rem;
+    margin-top: 5rem;
   }
   h1{
     font-size: 1rem;

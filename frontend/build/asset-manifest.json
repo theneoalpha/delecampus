@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a126c56f.css",
-    "main.js": "/static/js/main.e4bed3b3.js",
+    "main.css": "/static/css/main.438901ba.css",
+    "main.js": "/static/js/main.2b6bfc8b.js",
     "static/js/453.8b673663.chunk.js": "/static/js/453.8b673663.chunk.js",
     "static/media/hero-banner-bg.png": "/static/media/hero-banner-bg.dbc6cf4ea0481fe1779a.png",
     "static/media/year1.png": "/static/media/year1.988aa1369141eae57c13.png",
@@ -13,14 +13,15 @@
     "static/media/experts.svg": "/static/media/experts.671823fdbae3a8acd81221e790d2d8a9.svg",
     "static/media/boy.svg": "/static/media/boy.7d6720e159d4191316914e61b0537218.svg",
     "static/media/Electrical.jpg": "/static/media/Electrical.8e714e8a3e7125c86215.jpg",
+    "static/media/thought.svg": "/static/media/thought.ac3bb1381b42989f59ddecd544e0f506.svg",
     "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/index.html",
-    "main.a126c56f.css.map": "/static/css/main.a126c56f.css.map",
-    "main.e4bed3b3.js.map": "/static/js/main.e4bed3b3.js.map",
+    "main.438901ba.css.map": "/static/css/main.438901ba.css.map",
+    "main.2b6bfc8b.js.map": "/static/js/main.2b6bfc8b.js.map",
     "453.8b673663.chunk.js.map": "/static/js/453.8b673663.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a126c56f.css",
-    "static/js/main.e4bed3b3.js"
+    "static/css/main.438901ba.css",
+    "static/js/main.2b6bfc8b.js"
   ]
 }

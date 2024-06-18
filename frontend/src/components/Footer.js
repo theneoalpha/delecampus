@@ -33,7 +33,7 @@ export default function Footer(props) {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/notes">Notes</Link></li>
                 <li><Link to="/view">View</Link></li>
-                <li><Link to="#">Events</Link></li>
+                <li><Link to="./thoughts">Community Posts</Link></li>
                 <li><Link to="#">Explore</Link></li>
                 <li><Link to="#">About Us</Link></li>
               </ul>
