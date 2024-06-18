@@ -19,14 +19,13 @@ export default function Navbar() {
               <div className="collapse navbar-collapse offset" id="navbarSupportedContent">
                 <ul className="nav navbar-nav menu_nav justify-content-end">
                   <li className="nav-item active"><Link className="nav-link" to="/">Home</Link></li> 
-                  <li className="nav-item"><Link className="nav-link" to="/notes">Notes</Link> </li>
+                  
                   <li className="nav-item"><Link className="nav-link" to="/view">View</Link>
                   </li><li className="nav-item submenu dropdown">
                     <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
                     <ul className="dropdown-menu">
                       <li className="nav-item"><a className="nav-link" href="#">Events</a>                 
-                      </li> <li className="nav-item"><Link className="nav-link" to="/thoughts">Community Posts</Link> </li>
-                    </ul>
+                      </li><li className="nav-item"><Link className="nav-link" to="/thoughts">Community Posts</Link> </li></ul>
                   </li>
                   <li className="nav-item"><Link className="nav-link" to="#">About Us</Link></li>
                 </ul>

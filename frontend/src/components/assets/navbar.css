@@ -8,12 +8,11 @@ body {
   font-weight: 300;
   line-height: 1.8;
 }
-
+.commButton{
+  margin-top: 1rem;
+}
 .header_area .navbar {
   background: linear-gradient(90deg, #1595b9 0%, #0e1e7a 100%);
-}
-.combutton{
-  margin-top: 1rem;
 }
 .hero-banner::after{
   

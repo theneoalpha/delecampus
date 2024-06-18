@@ -1,46 +1,69 @@
-const express = require('express');
-const registerRouter = express.Router();
-const User = require('../model/userSchema');
-const bcrypt = require('bcryptjs');
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-registerRouter.post('/register', async (req, res) => {
-  const { name, email, skill, ig_username, linkedin, batch, github, password, cpassword } = req.body;
+const User = require("../model/userSchema");
 
-  if (!name || !email || !skill || !batch || !password || !cpassword) {
-    return res.status(422).json({ error: 'Please fill all required fields' });
-  }
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
-  if (password !== cpassword) {
-    return res.status(422).json({ error: 'Passwords do not match' });
+// Register Route
+router.post("/register", async (req, res) => {
+  const { name, email, skill, ig_username, linkdin, twitter, github, password, cpassword } = req.body;
+
+  if (!name || !email || !skill  || !password || !cpassword) {
+    return res.status(422).json({ error: "Please fill in all the fields" });
   }
 
   try {
     const userExist = await User.findOne({ email: email });
-
     if (userExist) {
-      return res.status(422).json({ error: 'Email already exists' });
+      return res.status(420).json({ error: "Email already exists" });
+    } else if (password !== cpassword) {
+      return res.status(400).json({ error: "Password Not Matched" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const user = new User({ name, skill, email, ig_username, linkdin, twitter, github, password, cpassword });
 
-    const user = new User({ 
-      name, 
-      email, 
-      skill, 
-      ig_username, 
-      linkedin, 
-      batch, 
-      github, 
-      password: hashedPassword 
-    });
-
-    await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
-
+    const saveMethod = await user.save();
+    if (saveMethod) {
+      return res.status(201).json({ message: "User registered successfully" });
+    } else {
+      return res.status(500).json({ message: "Failed to register" });
+    }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to register' });
+    console.log(err);
+    res.status(500).json({ message: "Failed to register" });
   }
 });
 
-module.exports = registerRouter;
+// Contact Route
+router.post("/contact", async (req, res) => {
+  const { name, email, phone, text } = req.body;
+
+  if (!name || !email || !phone || !text) {
+    return res.status(422).json({ error: "Please fill in all the fields" });
+  }
+
+  try {
+    const userExist = await User.findOne({ email: email });
+    if (userExist) {
+      return res.status(420).json({ error: "Email already exists" });
+    }
+
+    const user = new User({ name, email, phone, text });
+
+    const saveMethod = await user.save();
+    if (saveMethod) {
+      return res.redirect("/thankyou");
+    } else {
+      return res.status(500).json({ message: "Failed to submit contact form" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to submit contact form" });
+  }
+});
+
+module.exports = router;

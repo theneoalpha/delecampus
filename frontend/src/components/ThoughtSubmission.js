@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import "../components/assets/thoughts.css";
 import Footer from './Footer';
-import thought from "./img/thought.svg";
+import thought from "./img/experts.svg";
+import './assets/thoughts.css';
+import { Link } from "react-router-dom";
+import join from './images/join.svg';
 import Navbar from './Navbar';
 function ThoughtSubmission() {
   const [content, setContent] = useState('');
@@ -11,7 +12,7 @@ function ThoughtSubmission() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://delecampus.vercel.app/thought', { // Adjust the port if necessary
+      const response = await fetch('http://localhost:8000/thought', { // Adjust the port if necessary
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,11 +35,13 @@ function ThoughtSubmission() {
   return (
     <>
     <Navbar/>
+    <h1 className='subHead'>Share Your Thought</h1>
     <div className='experience_container'>
-    <img src={thought} alt="Thoughts" />
-      <div >
+    
+    <img src={join} alt="Thoughts" />
+      <div className='subForm'>
       
-      <h1>Share Your Thought</h1>
+   
       <form onSubmit={handleSubmit}>
         <textarea
           value={content}
@@ -49,7 +52,7 @@ function ThoughtSubmission() {
         <button className='button button-outline' type="submit">Share</button>
       </form>
       {message && <p>{message}</p>}
-      <Link className="button button-outline" to="/thoughts">Community Posts</Link>
+      <Link className="button button-outline commButton" to="/thoughts">Community Posts</Link>
     </div>
     </div>
     <Footer/>

@@ -18,8 +18,8 @@ export default function Home() {
           <h1>Know Your Seniors</h1>
           <p className="hero-subtitle">“The Spirit Never Ages. It Stays Forever Young.”</p>
           <Link className="button button-outline" to="/view">View</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link className="button button-outline " to="/register">Add Me</Link>
-          
-        </div><Link className="button button-outline combutton" to="/thoughts">Community Posts</Link>
+        </div>
+        <Link className="button button-outline commButton" to="/thoughts">Community Posts</Link>
       </section>
 
 

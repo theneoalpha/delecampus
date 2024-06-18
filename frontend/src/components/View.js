@@ -58,12 +58,12 @@ export default function View() {
               <img src={Year1} alt="pr-sample25" />
             </div>
             <figcaption>
-              <h3>Batch 2019-2023</h3>
+              <h3>Batch 2022-2026</h3>
               <p>
                 Definiteness of purpose is the starting point of all achievement.
               </p>
             </figcaption>
-            <Link to="/view/batch1923" />
+            <Link to="/view/batch2226" />
           </figure>
         </div>
         
