@@ -1,68 +1,47 @@
 import React, { useState } from 'react';
-import "../components/assets/thoughts.css";
-import Navbar from "./Navbar.js";
-import { Link } from "react-router-dom";
-import Footer from "./Footer";
 
-export default function ThoughtSubmission() {
-  const [thought, setThought] = useState({
-    content: ''
-  });
-
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setThought({ ...thought, [name]: value });
-  };
+function ThoughtSubmission() {
+  const [content, setContent] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { content } = thought;
-
     try {
-      const res = await fetch("/thought", { // Using the relative URL
-        method: "POST",
+      const response = await fetch('http://localhost:8000/thought', { // Adjust the port if necessary
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          content
-        }),
+        body: JSON.stringify({ content }),
       });
 
-      const data = await res.json();
-
-      if (res.status === 422 || !data) {
-        window.alert("Invalid Message");
-        console.log("Invalid Message");
+      if (response.ok) {
+        setMessage('Thought shared successfully!');
+        setContent('');
       } else {
-        window.alert("Successfully Posted in Community");
-        console.log("Successfully Posted in Community");
-        setThought({ content: '' }); // Clear the input field after successful submission
+        setMessage('Failed to share thought');
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error:', error);
+      setMessage('An error occurred');
     }
   };
 
   return (
-    <>
-      <Navbar />
-      <div className='experience_container'>
-        <h1>Share on Community</h1>
-        <form onSubmit={handleSubmit}>
-          <textarea
-            name="content"
-            value={thought.content}
-            onChange={handleInput}
-            placeholder="What's on your mind?"
-            required
-            style={{ width: '400px', height: '200px' }} // Inline styles to increase width and height
-          ></textarea>
-          <button type="submit" className='button button-outline thoughtbutton'>Share</button>
-        </form>
-        <Link className="button button-outline" to="/thoughts">See Community Posts</Link>
-      </div>
-      <Footer />
-    </>
+    <div>
+      <h1>Share Your Thought</h1>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="What's on your mind?"
+          required
+        ></textarea>
+        <button type="submit">Share</button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
   );
 }
+
+export default ThoughtSubmission;

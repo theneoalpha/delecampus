@@ -5,9 +5,11 @@ const path = require('path');
 const dotenv = require("dotenv");
 dotenv.config({path:'./process.env'})
 require("./db/conn.js");
-
+const thoughtRouter = require('./router/thoughtRoutes.js');
 app.use(express.json());
-
+const cors = require('cors');
+app.use(cors());
+app.use(thoughtRouter);
 
 const Users = require('./model/userSchema');
 

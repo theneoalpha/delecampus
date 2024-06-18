@@ -14,12 +14,12 @@ thoughtRouter.post('/thought', async (req, res) => {
 });
 
 thoughtRouter.get('/thoughts', async (req, res) => {
-    try {
-        const thoughts = await Thought.find({});
-        res.json(thoughts); // Ensure the response is JSON
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch thoughts' });
-    }
+  try {
+      const thoughts = await Thought.find({});
+      res.json(thoughts); // Ensure the response is JSON
+  } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch thoughts' });
+  }
 });
 
 module.exports = thoughtRouter;
