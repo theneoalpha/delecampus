@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../model/userSchema");
-const JWT_SECRET = "your_jwt_secret"; // Replace with your own secret key
+const JWT_SECRET = "HELLOTHISISVIKASHKAUSHIKIAMAGOODBOY"; 
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
