@@ -75,6 +75,45 @@ router.post("/login", async (req, res) => {
 
 
 
+// Middleware to authenticate using JWT
+const authenticate = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(403).json({ message: "No token provided" });
+
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(500).json({ message: "Failed to authenticate token" });
+    req.userId = decoded._id;
+    next();
+  });
+};
+
+// Profile Route
+router.get("/profile", authenticate, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('-password');
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch user profile", error: err.message });
+  }
+});
+
+router.put("/profile", authenticate, async (req, res) => {
+  const { name, skill, ig_username, linkdin, twitter, github } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      { name, skill, ig_username, linkdin, twitter, github },
+      { new: true }
+    ).select('-password');
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ message: "Profile updated successfully", user });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update profile", error: err.message });
+  }
+});
+
+
 
 
 module.exports = router;
