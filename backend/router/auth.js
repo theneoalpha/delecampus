@@ -41,8 +41,7 @@ router.post("/register", async (req, res) => {
 // Contact Route
 router.post("/contact", async (req, res) => {
   const { name, email, phone, text } = req.body;
-
-  if (!name || !email || !phone || !text) {
+  if (!name || !email || !skill  || !password || !cpassword) {
     return res.status(422).json({ error: "Please fill in all the fields" });
   }
 
@@ -56,7 +55,8 @@ router.post("/contact", async (req, res) => {
 
     const saveMethod = await user.save();
     if (saveMethod) {
-      return res.redirect("/thankyou");
+      console.log("Registered Successfully");
+      // return res.redirect("/thankyou");
     } else {
       return res.status(500).json({ message: "Failed to submit contact form" });
     }
