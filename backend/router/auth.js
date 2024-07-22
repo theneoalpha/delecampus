@@ -36,11 +36,11 @@ router.post("/register", async (req, res) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
       return res.status(201).json({ message: "User registered successfully", token: token });
     } else {
-      return res.status(500).json({ message: "Failed to register" });
+      return res.status(500).json({ message: "Failed to register token one" });
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to register" });
+    res.status(500).json({ message: "Failed to register from catch block" });
   }
 });
 
