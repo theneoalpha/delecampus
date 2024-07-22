@@ -36,11 +36,11 @@ router.post("/register", async (req, res) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
       return res.status(201).json({ message: "User registered successfully", token: token });
     } else {
-      return res.status(500).json({ message: "Failed to register token one" });
+      return res.status(500).json({ message: "Failed to register" });
     }
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Failed to register from catch block" });
+    console.error('Error during registration:', err);  // Log the error stack
+    res.status(500).json({ message: "Failed to register from catch block", error: err.message });
   }
 });
 
@@ -67,8 +67,8 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
     return res.status(200).json({ message: "Login successful", token: token });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Login failed" });
+    console.error('Error during login:', err);  // Log the error stack
+    res.status(500).json({ message: "Login failed", error: err.message });
   }
 });
 
