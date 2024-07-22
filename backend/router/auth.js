@@ -25,21 +25,21 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Passwords do not match" });
     }
 
-    // Hash the password before saving it
+   
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = new User({ name, skill, email, ig_username, linkdin, twitter, github, password: hashedPassword });
 
     const saveMethod = await user.save();
     if (saveMethod) {
-      // Generate token
+      
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
       return res.status(201).json({ message: "User registered successfully", token: token });
     } else {
       return res.status(500).json({ message: "Failed to register" });
     }
   } catch (err) {
-    console.error('Error during registration:', err);  // Log the error stack
+    console.error('Error during registration:', err);  
     res.status(500).json({ message: "Failed to register from catch block", error: err.message });
   }
 });
@@ -67,9 +67,14 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
     return res.status(200).json({ message: "Login successful", token: token });
   } catch (err) {
-    console.error('Error during login:', err);  // Log the error stack
+    console.error('Error during login:', err); 
     res.status(500).json({ message: "Login failed", error: err.message });
   }
 });
+
+
+
+
+
 
 module.exports = router;
