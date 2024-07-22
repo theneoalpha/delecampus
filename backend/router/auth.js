@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../model/userSchema");
+const JWT_SECRET = "your_jwt_secret"; // Replace with your own secret key
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -12,7 +13,7 @@ router.use(express.urlencoded({ extended: true }));
 router.post("/register", async (req, res) => {
   const { name, email, skill, ig_username, linkdin, twitter, github, password, cpassword } = req.body;
 
-  if (!name || !email || !skill  || !password || !cpassword) {
+  if (!name || !email || !skill || !password || !cpassword) {
     return res.status(422).json({ error: "Please fill in all the fields" });
   }
 
@@ -21,14 +22,19 @@ router.post("/register", async (req, res) => {
     if (userExist) {
       return res.status(420).json({ error: "Email already exists" });
     } else if (password !== cpassword) {
-      return res.status(400).json({ error: "Password Not Matched" });
+      return res.status(400).json({ error: "Passwords do not match" });
     }
 
-    const user = new User({ name, skill, email, ig_username, linkdin, twitter, github, password, cpassword });
+    // Hash the password before saving it
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const user = new User({ name, skill, email, ig_username, linkdin, twitter, github, password: hashedPassword });
 
     const saveMethod = await user.save();
     if (saveMethod) {
-      return res.status(201).json({ message: "User registered successfully" });
+      // Generate token
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+      return res.status(201).json({ message: "User registered successfully", token: token });
     } else {
       return res.status(500).json({ message: "Failed to register" });
     }
@@ -38,31 +44,31 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Contact Route
-router.post("/contact", async (req, res) => {
-  const { name, email, phone, text } = req.body;
-  if (!name || !email || !skill  || !password || !cpassword) {
+// Login Route
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
     return res.status(422).json({ error: "Please fill in all the fields" });
   }
 
   try {
-    const userExist = await User.findOne({ email: email });
-    if (userExist) {
-      return res.status(420).json({ error: "Email already exists" });
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    const user = new User({ name, email, phone, text });
-
-    const saveMethod = await user.save();
-    if (saveMethod) {
-      console.log("Registered Successfully");
-      // return res.redirect("/thankyou");
-    } else {
-      return res.status(500).json({ message: "Failed to submit contact form" });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid credentials" });
     }
+
+    // Generate token
+    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    return res.status(200).json({ message: "Login successful", token: token });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to submit contact form" });
+    res.status(500).json({ message: "Login failed" });
   }
 });
 
